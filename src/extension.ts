@@ -1,19 +1,23 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
-const markdown = require('./markdown');
+// const markdown = require('./markdown');
 
 
 export function activate(context: vscode.ExtensionContext) {
-let currentPanel: vscode.WebviewPanel | undefined = undefined;
+// let currentPanel: vscode.WebviewPanel | undefined = undefined;
     context.subscriptions.push(
     vscode.commands.registerCommand('ide-prototype.mkGraph', () => {
+      const col = vscode.ViewColumn.Two ? vscode.ViewColumn.Three : vscode.ViewColumn.Two; // set as new panel position
         // ensure that doc opens as new panel instead of new tab
-        vscode.commands.executeCommand('vscode.setEditorLayout', { groups: [{ orientation: 0, groups: [{}, {orientation: 1, groups: [{}, {}], size: 0.5}], size: 0.5 }] });
+        if(vscode.ViewColumn.Two ){
+          vscode.commands.executeCommand('vscode.setEditorLayout', { groups: [{ orientation: 0, groups: [{}, {orientation: 1, groups: [{}, {}], size: 0.5}], size: 0.5 }] });
+        }
+        // vscode.commands.executeCommand('vscode.setEditorLayout', { groups: [{ orientation: 0, groups: [{}, {orientation: 1, groups: [{}, {}], size: 0.5}], size: 0.5 }] });
 
-        currentPanel = vscode.window.createWebviewPanel(
+        let currentPanel = vscode.window.createWebviewPanel(
           'mkGraph',
           'L4 Graph',
-          vscode.ViewColumn.Beside,
+          col,
           {
             // Only allow the webview to access resources in our extension's media directory
             localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'media'))],
@@ -35,10 +39,6 @@ let currentPanel: vscode.WebviewPanel | undefined = undefined;
   const myScheme = 'markdown';
 	const myProvider = new class implements vscode.TextDocumentContentProvider {
 
-		// emitter and its event
-		// onDidChangeEmitter = new vscode.EventEmitter<vscode.Uri>();
-		// onDidChange = this.onDidChangeEmitter.event;
-
 		provideTextDocumentContent(uri: vscode.Uri): string {
       let displayText = 'The Sale of Cabbages is Restricted. Everybody may sell the item, when the item is a cabbage and sale is onLegalDate or (unlikely) the seller has Exemption.';
       return displayText;
@@ -52,8 +52,10 @@ let currentPanel: vscode.WebviewPanel | undefined = undefined;
       const doc = await vscode.workspace.openTextDocument(uri); // calls back into the provider
       const col = vscode.ViewColumn.Two ? vscode.ViewColumn.Three : vscode.ViewColumn.Two; // set as new panel position
 
-      // ensure that doc opens as new panel instead of new tab
-      vscode.commands.executeCommand('vscode.setEditorLayout', { groups: [{ orientation: 0, groups: [{}, { orientation: 1, groups: [{}, {}], size: 0.5}], size: 0.5 }] });
+      if(vscode.ViewColumn.Two){
+        // ensure that doc opens as new panel instead of new tab
+        vscode.commands.executeCommand('vscode.setEditorLayout', { groups: [{ orientation: 0, groups: [{}, {orientation: 1, groups: [{}, {}], size: 0.5}], size: 0.5 }] });
+      }
      
 			await vscode.window.showTextDocument(doc, col);
 	}));

@@ -1,20 +1,18 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
-// const markdown = require('./markdown');
-
 
 export function activate(context: vscode.ExtensionContext) {
-// let currentPanel: vscode.WebviewPanel | undefined = undefined;
     context.subscriptions.push(
+
+    // Generate graph
     vscode.commands.registerCommand('ide-prototype.mkGraph', () => {
-      const col = vscode.ViewColumn.Two ? vscode.ViewColumn.Three : vscode.ViewColumn.Two; // set as new panel position
+      const col = vscode.ViewColumn.Two ? vscode.ViewColumn.Three : vscode.ViewColumn.Two; // set new panel position
         // ensure that doc opens as new panel instead of new tab
         if(vscode.ViewColumn.Two ){
           vscode.commands.executeCommand('vscode.setEditorLayout', { groups: [{ orientation: 0, groups: [{}, {orientation: 1, groups: [{}, {}], size: 0.5}], size: 0.5 }] });
         }
-        // vscode.commands.executeCommand('vscode.setEditorLayout', { groups: [{ orientation: 0, groups: [{}, {orientation: 1, groups: [{}, {}], size: 0.5}], size: 0.5 }] });
 
-        let currentPanel = vscode.window.createWebviewPanel(
+        let panel = vscode.window.createWebviewPanel(
           'mkGraph',
           'L4 Graph',
           col,
@@ -30,12 +28,13 @@ export function activate(context: vscode.ExtensionContext) {
         );
   
         // And get the special URI to use with the webview
-        const graphSrc = currentPanel.webview.asWebviewUri(onDiskPath);
+        const graphSrc = panel.webview.asWebviewUri(onDiskPath);
   
-        currentPanel.webview.html = getWebviewContent(graphSrc);
+        panel.webview.html = getWebviewContent(graphSrc);
     
     }))
-
+  
+  // Register virtual doc provider
   const myScheme = 'markdown';
 	const myProvider = new class implements vscode.TextDocumentContentProvider {
 
@@ -46,11 +45,12 @@ export function activate(context: vscode.ExtensionContext) {
   };
   
   context.subscriptions.push(vscode.workspace.registerTextDocumentContentProvider(myScheme, myProvider));
-
+  
+  // Generate text panel
 	context.subscriptions.push(vscode.commands.registerCommand('markdown.show', async () => {
 			const uri = vscode.Uri.parse('markdown:' + 'L4'); // 'name of tab itself 
       const doc = await vscode.workspace.openTextDocument(uri); // calls back into the provider
-      const col = vscode.ViewColumn.Two ? vscode.ViewColumn.Three : vscode.ViewColumn.Two; // set as new panel position
+      const col = vscode.ViewColumn.Two ? vscode.ViewColumn.Three : vscode.ViewColumn.Two; // set new panel position
 
       if(vscode.ViewColumn.Two){
         // ensure that doc opens as new panel instead of new tab

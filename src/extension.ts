@@ -2,11 +2,11 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 
 export function activate(context: vscode.ExtensionContext) {
-    context.subscriptions.push(
 
+    context.subscriptions.push(
     // Generate graph
     vscode.commands.registerCommand('ide-prototype.mkGraph', () => {
-      const currentPanel = vscode.window.activeTextEditor != undefined ? vscode.window.activeTextEditor.viewColumn : undefined;
+      const currentPanel = vscode.window.activeTextEditor ? vscode.window.activeTextEditor.viewColumn : undefined;
 
         // ensure new panel opens instead of new tab
         splitIfPanelExists(currentPanel);
@@ -47,7 +47,7 @@ export function activate(context: vscode.ExtensionContext) {
   
   // Generate text panel
 	context.subscriptions.push(vscode.commands.registerCommand('markdown.show', async () => {
-      const currentPanel = vscode.window.activeTextEditor != undefined ? vscode.window.activeTextEditor.viewColumn : undefined;
+      const currentPanel = vscode.window.activeTextEditor ? vscode.window.activeTextEditor.viewColumn : undefined;
 			const uri = vscode.Uri.parse('markdown:' + 'L4'); // 'name of tab itself 
       const doc = await vscode.workspace.openTextDocument(uri); // calls back into the provider
 
@@ -57,6 +57,7 @@ export function activate(context: vscode.ExtensionContext) {
 			await vscode.window.showTextDocument(doc, vscode.ViewColumn.Beside);
 	}));
 }
+
 
 function splitIfPanelExists(panel: vscode.ViewColumn | undefined) {
   // split if there is more than one view column

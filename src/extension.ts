@@ -46,7 +46,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(vscode.workspace.registerTextDocumentContentProvider(myScheme, myProvider));
   
   // Generate text panel
-	context.subscriptions.push(vscode.commands.registerCommand('markdown.show', async () => {
+	context.subscriptions.push(vscode.commands.registerCommand('ide-prototype.mkMarkdown', async () => {
       const currentPanel = vscode.window.activeTextEditor ? vscode.window.activeTextEditor.viewColumn : undefined;
 			const uri = vscode.Uri.parse('markdown:' + 'L4'); // 'name of tab itself 
       const doc = await vscode.workspace.openTextDocument(uri); // calls back into the provider
@@ -61,7 +61,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 function splitIfPanelExists(panel: vscode.ViewColumn | undefined) {
   // split if there is more than one view column
-  if (panel && panel != vscode.ViewColumn.One) {
+  if (panel != vscode.ViewColumn.One) {
     vscode.commands.executeCommand('vscode.setEditorLayout', { groups: [{ orientation: 0, groups: [{}, { orientation: 1, groups: [{}, {}], size: 0.5 }], size: 0.5 }] });
   }
 }

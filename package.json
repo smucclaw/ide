@@ -11,7 +11,7 @@
 	],
 	"activationEvents": [
     "onCommand:l4-extension.helloWorld",
-    "onCommand:markdown.show",
+    "onCommand:ide-prototype.mkMarkdown",
     "onCommand:ide-prototype.mkGraph"
 	],
 	"main": "./out/extension.js",
@@ -22,7 +22,7 @@
 				"title": "Hello World"
       },
       {
-				"command": "markdown.show",
+				"command": "ide-prototype.mkMarkdown",
 				"title": "Generate Markdown"
       },
       {

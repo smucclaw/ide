@@ -6,16 +6,15 @@ export function activate(context: vscode.ExtensionContext) {
 
     // Generate graph
     vscode.commands.registerCommand('ide-prototype.mkGraph', () => {
-      const col = vscode.ViewColumn.Two ? vscode.ViewColumn.Three : vscode.ViewColumn.Two; // set new panel position
-        // ensure that doc opens as new panel instead of new tab
-        if(vscode.ViewColumn.Two ){
-          vscode.commands.executeCommand('vscode.setEditorLayout', { groups: [{ orientation: 0, groups: [{}, {orientation: 1, groups: [{}, {}], size: 0.5}], size: 0.5 }] });
-        }
+      const currentPanel = vscode.window.activeTextEditor != undefined ? vscode.window.activeTextEditor.viewColumn : undefined;
+
+        // ensure new panel opens instead of new tab
+        splitIfPanelExists(currentPanel);
 
         let panel = vscode.window.createWebviewPanel(
           'mkGraph',
           'L4 Graph',
-          col,
+          vscode.ViewColumn.Beside,
           {
             // Only allow the webview to access resources in our extension's media directory
             localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'media'))],
@@ -48,17 +47,22 @@ export function activate(context: vscode.ExtensionContext) {
   
   // Generate text panel
 	context.subscriptions.push(vscode.commands.registerCommand('markdown.show', async () => {
+      const currentPanel = vscode.window.activeTextEditor != undefined ? vscode.window.activeTextEditor.viewColumn : undefined;
 			const uri = vscode.Uri.parse('markdown:' + 'L4'); // 'name of tab itself 
       const doc = await vscode.workspace.openTextDocument(uri); // calls back into the provider
-      const col = vscode.ViewColumn.Two ? vscode.ViewColumn.Three : vscode.ViewColumn.Two; // set new panel position
 
-      if(vscode.ViewColumn.Two){
-        // ensure that doc opens as new panel instead of new tab
-        vscode.commands.executeCommand('vscode.setEditorLayout', { groups: [{ orientation: 0, groups: [{}, {orientation: 1, groups: [{}, {}], size: 0.5}], size: 0.5 }] });
-      }
+      // ensure new panel opens instead of new tab
+      splitIfPanelExists(currentPanel);
      
-			await vscode.window.showTextDocument(doc, col);
+			await vscode.window.showTextDocument(doc, vscode.ViewColumn.Beside);
 	}));
+}
+
+function splitIfPanelExists(panel: vscode.ViewColumn | undefined) {
+  // split if there is more than one view column
+  if (panel != vscode.ViewColumn.One) {
+    vscode.commands.executeCommand('vscode.setEditorLayout', { groups: [{ orientation: 0, groups: [{}, { orientation: 1, groups: [{}, {}], size: 0.5 }], size: 0.5 }] });
+  }
 }
 
 function getWebviewContent(graph: vscode.Uri) {

@@ -10,7 +10,9 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:l4-extension.helloWorld"
+    "onCommand:l4-extension.helloWorld",
+    "onCommand:ide-prototype.mkMarkdown",
+    "onCommand:ide-prototype.mkGraph"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -18,6 +20,14 @@
 			{
 				"command": "l4-extension.helloWorld",
 				"title": "Hello World"
+      },
+      {
+				"command": "ide-prototype.mkMarkdown",
+				"title": "Generate Markdown"
+      },
+      {
+				"command": "ide-prototype.mkGraph",
+				"title": "Generate Graph"
 			}
 		]
 	},

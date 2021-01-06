@@ -1,25 +1,27 @@
 import * as vscode from 'vscode';
+import * as path from 'path';
 import { splitIfPanelExists } from './extension';
+import * as fs from 'fs';
 
-export function mkMarkdown(): (...args: any[]) => any {
-  return async () => {
+export async function mkMarkdown(context: vscode.ExtensionContext){
     const currentPanel = vscode.window.activeTextEditor ? vscode.window.activeTextEditor.viewColumn : undefined;
-    const uri = vscode.Uri.parse('markdown:' + 'L4'); // 'name of tab itself 
+    const uri = vscode.Uri.file( path.join(context.extensionPath, 'media', 'markdownText') ); 
     const doc = await vscode.workspace.openTextDocument(uri); // calls back into the provider
 
     // ensure new panel opens instead of new tab
     splitIfPanelExists(currentPanel);
 
     await vscode.window.showTextDocument(doc, vscode.ViewColumn.Beside);
-  };
 }
 
  // Register virtual doc provider
- export const myScheme = 'markdown';
- export const myProvider = new class implements vscode.TextDocumentContentProvider {
+ export const markdownProvider = new class implements vscode.TextDocumentContentProvider {
 
-   provideTextDocumentContent(uri: vscode.Uri): string {
-     let displayText = 'The Sale of Cabbages is Restricted. Everybody may sell the item, when the item is a cabbage and sale is onLegalDate or (unlikely) the seller has Exemption.';
-     return displayText;
+  // use filesync
+  provideTextDocumentContent(uri: vscode.Uri): string {
+    const input = fs.readFileSync(uri.path).toString()
+    return input;
    }
  };
+
+

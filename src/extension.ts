@@ -1,15 +1,15 @@
 import * as vscode from 'vscode';
 import { mkGraph } from './mkGraph';
-import { mkMarkdown, myProvider, myScheme } from './mkMarkdown';
+import { mkMarkdown, markdownProvider } from './mkMarkdown';
 
 export function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(
     // Generate graph 
-    vscode.commands.registerCommand('ide-prototype.mkGraph', mkGraph(context)),
-    vscode.workspace.registerTextDocumentContentProvider(myScheme, myProvider),
+    vscode.commands.registerCommand('ide-prototype.mkGraph', () => mkGraph(context)),
+    vscode.workspace.registerTextDocumentContentProvider('markdown', markdownProvider),
     // Generate markdown
-    vscode.commands.registerCommand('ide-prototype.mkMarkdown', mkMarkdown())
+    vscode.commands.registerCommand('ide-prototype.mkMarkdown', () => mkMarkdown(context))
 
     )
 }

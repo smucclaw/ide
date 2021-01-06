@@ -2,8 +2,7 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import { splitIfPanelExists } from './extension';
 
-export function mkGraph(context: vscode.ExtensionContext): (...args: any[]) => any {
-  return () => {
+export function mkGraph(context: vscode.ExtensionContext){
     const currentPanel = vscode.window.activeTextEditor ? vscode.window.activeTextEditor.viewColumn : undefined;
 
     // ensure new panel opens instead of new tab
@@ -28,8 +27,6 @@ export function mkGraph(context: vscode.ExtensionContext): (...args: any[]) => a
     const graphSrc = panel.webview.asWebviewUri(onDiskPath);
 
     panel.webview.html = getWebviewContent(graphSrc);
-
-  };
 }
 
 function getWebviewContent(graph: vscode.Uri) {

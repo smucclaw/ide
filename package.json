@@ -29,7 +29,18 @@
 				"command": "ide-prototype.mkGraph",
 				"title": "Generate Graph"
 			}
-		]
+		],
+		"languages": [{
+			"id": "l4",
+			"aliases": ["l4", "l4"],
+			"extensions": [".l4"],
+			"configuration": "./language-configuration.json"
+		}],
+		"grammars": [{
+			"language": "l4",
+			"scopeName": "source.l4",
+			"path": "./syntaxes/l4.tmLanguage.json"
+		}]
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",

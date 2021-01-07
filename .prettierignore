@@ -1,0 +1,8 @@
+# Ignore artifacts:
+media
+node_modules
+build
+coverage
+*.html
+*.l4
+*.md

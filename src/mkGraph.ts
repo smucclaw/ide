@@ -1,8 +1,10 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
+import * as child_process from 'child_process';
 import { splitIfPanelExists } from './extension';
 
 export function mkGraph(context: vscode.ExtensionContext) {
+
   const currentPanel = vscode.window.activeTextEditor
     ? vscode.window.activeTextEditor.viewColumn
     : undefined;
@@ -21,10 +23,30 @@ export function mkGraph(context: vscode.ExtensionContext) {
   // And get the special URI to use with the webview
   const graphSrc = panel.webview.asWebviewUri(onDiskPath);
 
-  panel.webview.html = getWebviewContent(graphSrc);
+  child_process.exec("l4 $HOME/code/dsl/bnfc/l4/deon_bike_meng.l4",
+    { cwd: "$HOME/code/dsl/bnfc" },
+    (error, stdout, stderr) => {
+      if (error) {
+        console.error(`exec error: ${error}`);
+        return;
+      }
+      console.error(`l4 stderr: ${stderr}`);
+
+      const capt = child_process.exec("dot -Tsvg",(error, stdout, stderr) => {
+        if (error) {
+          console.error(`exec error: ${error}`);
+          return;
+        }
+        console.log(`dot stdout:${getWebviewContent2(stdout)}`);
+        console.error(`dot stderr: ${stderr}`);
+        panel.webview.html = getWebviewContent2(stdout);
+      });
+      capt.stdin?.write(stdout);
+      capt.stdin?.end();
+    });
 }
 
-function getWebviewContent(graph: vscode.Uri) {
+function getWebviewContent2(svg: string) {
   return `<!DOCTYPE html>
           <html lang="en">
           <head>
@@ -33,7 +55,7 @@ function getWebviewContent(graph: vscode.Uri) {
               <title>L4 Graph</title>
           </head>
           <body>
-              <img src="${graph}" width="500" />
+              ${svg}
           </body>
           </html>`;
 }

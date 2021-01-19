@@ -2,6 +2,8 @@ import * as vscode from 'vscode';
 import * as child_process from 'child_process';
 import { splitIfPanelExists } from './extension';
 import { promisify } from 'util';
+const user_cwd = process.cwd();
+
 
 const execPromise = promisify(child_process.exec);
 
@@ -25,9 +27,20 @@ export const markdownProvider = new (class implements vscode.TextDocumentContent
     const { stdout: mkdwnOut, stderr: mkdwnErr } = await produceMarkdown();
 
     function produceMarkdown() {
-      return execPromise('l4 /Users/aseykoh/smu/dsl/bnfc/l4/mkdown.l4', {
-        cwd: '/Users/aseykoh/smu/dsl/bnfc',
-      });
+      // Run only if a folder & a file are open
+      if(vscode.workspace.workspaceFolders && vscode.window.activeTextEditor){
+        // Get path to current folder open in workspace
+        let folderPath = vscode.workspace.workspaceFolders[0].uri.path;
+
+        // Get path to current file in active editor
+        let filePath = vscode.window.activeTextEditor.document.fileName;
+
+        return execPromise('l4 ' + filePath, {
+          cwd: folderPath,
+        });
+      }
+      // Throw error if no folder or file available
+      return { stdout: 'No open folder | No open file', stderr: 'Err' }
     }
     return mkdwnOut;
   }

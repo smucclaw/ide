@@ -2,9 +2,11 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import * as child_process from 'child_process';
 import { splitIfPanelExists } from './extension';
+import { promisify } from 'util';
 
-export function mkGraph(context: vscode.ExtensionContext) {
+const execPromise = promisify(child_process.exec);
 
+export async function mkGraph(context: vscode.ExtensionContext) {
   const currentPanel = vscode.window.activeTextEditor
     ? vscode.window.activeTextEditor.viewColumn
     : undefined;
@@ -23,27 +25,24 @@ export function mkGraph(context: vscode.ExtensionContext) {
   // And get the special URI to use with the webview
   const graphSrc = panel.webview.asWebviewUri(onDiskPath);
 
-  child_process.exec("l4 $HOME/code/dsl/bnfc/l4/deon_bike_meng.l4",
-    { cwd: "$HOME/code/dsl/bnfc" },
-    (error, stdout, stderr) => {
-      if (error) {
-        console.error(`exec error: ${error}`);
-        return;
-      }
-      console.error(`l4 stderr: ${stderr}`);
+  const { stdout: dotOut, stderr: dotErr } = await produceDot();
+  const { stdout: svgOut, stderr: svgErr } = await produceSvg(dotOut);
 
-      const capt = child_process.exec("dot -Tsvg",(error, stdout, stderr) => {
-        if (error) {
-          console.error(`exec error: ${error}`);
-          return;
-        }
-        console.log(`dot stdout:${getWebviewContent2(stdout)}`);
-        console.error(`dot stderr: ${stderr}`);
-        panel.webview.html = getWebviewContent2(stdout);
-      });
-      capt.stdin?.write(stdout);
-      capt.stdin?.end();
-    });
+  panel.webview.html = getWebviewContent2(svgOut);
+}
+
+function produceSvg(lstdout: any) {
+  const svgPromise = execPromise('dot -Tsvg');
+
+  svgPromise.child.stdin?.write(lstdout);
+  svgPromise.child.stdin?.end();
+  return svgPromise;
+}
+
+function produceDot() {
+  return execPromise('l4 ${HOME}/code/dsl/bnfc/l4/deon_bike_meng.l4', {
+    cwd: '${HOME}/code/dsl/bnfc',
+  });
 }
 
 function getWebviewContent2(svg: string) {

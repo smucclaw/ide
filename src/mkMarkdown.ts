@@ -1,13 +1,15 @@
 import * as vscode from 'vscode';
-import * as path from 'path';
+import * as child_process from 'child_process';
 import { splitIfPanelExists } from './extension';
-import * as fs from 'fs';
+import { promisify } from 'util';
 
-export async function mkMarkdown(context: vscode.ExtensionContext) {
+const execPromise = promisify(child_process.exec);
+
+export async function mkMarkdown() {
   const currentPanel = vscode.window.activeTextEditor
     ? vscode.window.activeTextEditor.viewColumn
     : undefined;
-  const uri = vscode.Uri.file(path.join(context.extensionPath, 'media', 'markdownText'));
+  const uri = vscode.Uri.parse('markdown:' + 'L4'); // 'name of tab itself 
   const doc = await vscode.workspace.openTextDocument(uri); // calls back into the provider
 
   // ensure new panel opens instead of new tab
@@ -18,9 +20,15 @@ export async function mkMarkdown(context: vscode.ExtensionContext) {
 
 // Register virtual doc provider
 export const markdownProvider = new (class implements vscode.TextDocumentContentProvider {
-  // use filesync
-  provideTextDocumentContent(uri: vscode.Uri): string {
-    const input = fs.readFileSync(uri.path).toString();
-    return input;
+
+  async provideTextDocumentContent(uri: vscode.Uri): Promise<string> {
+    const { stdout: mkdwnOut, stderr: mkdwnErr } = await produceMarkdown();
+
+    function produceMarkdown() {
+      return execPromise('l4 /Users/aseykoh/smu/dsl/bnfc/l4/mkdown.l4', {
+        cwd: '/Users/aseykoh/smu/dsl/bnfc',
+      });
+    }
+    return mkdwnOut;
   }
 })();

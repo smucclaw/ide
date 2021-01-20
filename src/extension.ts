@@ -8,7 +8,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand('ide-prototype.mkGraph', () => mkGraph(context)),
     vscode.workspace.registerTextDocumentContentProvider('markdown', markdownProvider),
     // Generate markdown
-    vscode.commands.registerCommand('ide-prototype.mkMarkdown', () => mkMarkdown(context)),
+    vscode.commands.registerCommand('ide-prototype.mkMarkdown', () => mkMarkdown()),
   );
 }
 

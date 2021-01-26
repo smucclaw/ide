@@ -1,12 +1,9 @@
 import * as vscode from 'vscode';
-import * as path from 'path';
-import * as child_process from 'child_process';
-import { splitIfPanelExists } from './extension';
-import { promisify } from 'util';
+import { splitIfPanelExists, getFileFolderPaths } from './extension';
+import { runProcess } from './runProcess';
 
-const execPromise = promisify(child_process.exec);
 
-export async function mkGraph(context: vscode.ExtensionContext) {
+export async function mkGraph() {
   const currentPanel = vscode.window.activeTextEditor
     ? vscode.window.activeTextEditor.viewColumn
     : undefined;
@@ -14,38 +11,36 @@ export async function mkGraph(context: vscode.ExtensionContext) {
   // ensure new panel opens instead of new tab
   splitIfPanelExists(currentPanel);
 
-  let panel = vscode.window.createWebviewPanel('mkGraph', 'L4 Graph', vscode.ViewColumn.Beside, {
-    // Only allow the webview to access resources in our extension's media directory
-    localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'media'))],
-  });
+  let panel = vscode.window.createWebviewPanel('mkGraph', 'L4 Graph', vscode.ViewColumn.Beside, {});
 
-  // Get path to resource on disk
-  const onDiskPath = vscode.Uri.file(path.join(context.extensionPath, 'media', 'cabbage.png'));
+  // Get paths for child_process
+  let fileFolderPaths = getFileFolderPaths();
 
-  // And get the special URI to use with the webview
-  const graphSrc = panel.webview.asWebviewUri(onDiskPath);
-
-  const { stdout: dotOut, stderr: dotErr } = await produceDot();
+  const { stdout: dotOut, stderr: dotErr } = await produceDot(fileFolderPaths);
   const { stdout: svgOut, stderr: svgErr } = await produceSvg(dotOut);
 
-  panel.webview.html = getWebviewContent2(svgOut);
+  panel.webview.html = getWebviewContent(svgOut);
 }
 
 function produceSvg(lstdout: any) {
-  const svgPromise = execPromise('dot -Tsvg');
+  const svgPromise = runProcess('dot -Tsvg');
 
   svgPromise.child.stdin?.write(lstdout);
   svgPromise.child.stdin?.end();
   return svgPromise;
 }
 
-function produceDot() {
-  return execPromise('l4 ${HOME}/code/dsl/bnfc/l4/deon_bike_meng.l4', {
-    cwd: '${HOME}/code/dsl/bnfc',
-  });
+function produceDot(paths: { currentFolderInWorkplace: string; fileInActiveEditor: string }) {
+  if (paths) {
+    return runProcess('l4 ' + paths.fileInActiveEditor, {
+      cwd: paths.currentFolderInWorkplace,
+    });
+  }
+  // Throw error if no folder or file available
+  return { stdout: 'No open folder | No open file', stderr: 'Err' };
 }
 
-function getWebviewContent2(svg: string) {
+function getWebviewContent(svg: string) {
   return `<!DOCTYPE html>
           <html lang="en">
           <head>

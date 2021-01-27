@@ -36,9 +36,18 @@
 		},
 		{
 			"include": "#party"
+		},
+		{
+			"include": "#language"
 		}
 	],
 	"repository": {
+		"language": {
+			"patterns": [{
+				"name": "keyword.other.language.l4",
+				"match": ":\\w{2,}:"
+			}]
+		},
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.other.party.l4",

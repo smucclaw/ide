@@ -11,10 +11,10 @@ export async function mkGraph() {
   // ensure new panel opens instead of new tab
   splitIfPanelExists(currentPanel);
 
-  let panel = vscode.window.createWebviewPanel('mkGraph', 'L4 Graph', vscode.ViewColumn.Beside, {});
+  const panel = vscode.window.createWebviewPanel('mkGraph', 'L4 Graph', vscode.ViewColumn.Beside, {});
 
   // Get paths for child_process
-  let fileFolderPaths = getFileFolderPaths();
+  const fileFolderPaths = getFileFolderPaths();
 
   const { stdout: dotOut, stderr: dotErr } = await produceDot(fileFolderPaths);
   const { stdout: svgOut, stderr: svgErr } = await produceSvg(dotOut);

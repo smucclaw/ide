@@ -10,7 +10,7 @@ export async function mkMarkdown() {
   // ensure new panel opens instead of new tab
   splitIfPanelExists(currentPanel);
 
-  let panel = vscode.window.createWebviewPanel(
+  const panel = vscode.window.createWebviewPanel(
     'mkMarkdown',
     'L4 Natural Language',
     vscode.ViewColumn.Two,
@@ -18,7 +18,7 @@ export async function mkMarkdown() {
   );
 
   // Get paths for child_process
-  let fileFolderPaths = getFileFolderPaths();
+  const fileFolderPaths = getFileFolderPaths();
 
   // Get l4 nat-lang output
   const { stdout: mkdwnOut, stderr: mkdwnErr } = await produceNatLang(fileFolderPaths);

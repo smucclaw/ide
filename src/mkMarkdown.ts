@@ -10,7 +10,7 @@ export async function mkMarkdown() {
   // ensure new panel opens instead of new tab
   splitIfPanelExists(currentPanel);
 
-  const panel = vscode.window.createWebviewPanel(
+  let panel = vscode.window.createWebviewPanel(
     'mkMarkdown',
     'L4 Natural Language',
     vscode.ViewColumn.Two,

@@ -36,18 +36,9 @@
 		},
 		{
 			"include": "#party"
-		},
-		{
-			"include": "#language"
 		}
 	],
 	"repository": {
-		"language": {
-			"patterns": [{
-				"name": "keyword.other.language.l4",
-				"match": ":\\w{2,}:"
-			}]
-		},
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.other.party.l4",
@@ -60,8 +51,11 @@
 		},
 		"strings": {
 			"name": "string.quoted.double.l4",
-			"begin": "\"",
+			"begin": "(:\\w{2,}:)?\"",
 			"end": "\"",
+			"beginCaptures" : {
+				"1" : { "name" : "storage.type.rule.l4" }
+			},
 			"patterns": [
 				{
 					"name": "constant.character.escape.l4",

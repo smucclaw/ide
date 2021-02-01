@@ -153,7 +153,6 @@
 		,
 		"deadline-limb": {
 			"name": "meta.deadline.l4",
-
 			"begin": "(BEFORE|PRIORTO|AFTER|UNTIL)",
 			"end": "$\\n?",
 			"beginCaptures": {
@@ -167,8 +166,6 @@
 					"match": "\\s+(\\w+)(.\\w+)?(\\s+[+-]\\s+)?(\\d+)?"
 				}
 			]
-
-
 		},
 		"with-limb": {
 			"name": "meta.deadline.l4",

@@ -95,7 +95,7 @@
 		"deontic-limb": {
 			"name": "meta.deontic.l4",
 			"begin": "(MAY|MUST|SHANT)\\s+(\\w+)\\s+(\\w+)",
-			"end": "$\\n?",
+			"end": "\\s*(?=BEFORE|HENCE|WHEN|RULE)",
 			"beginCaptures": {
 				"1": {
 					"name": "keyword.other.deontic.l4"

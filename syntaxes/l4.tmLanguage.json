@@ -51,7 +51,7 @@
 		},
 		"strings": {
 			"name": "string.quoted.double.l4",
-			"begin": "(:\\w{2,}:)?\"",
+			"begin": "(:\\w{2}:)?\"",
 			"end": "\"",
 			"beginCaptures" : {
 				"1" : { "name" : "storage.type.rule.l4" }
@@ -153,11 +153,22 @@
 		,
 		"deadline-limb": {
 			"name": "meta.deadline.l4",
-			"match": "(BEFORE)\\s+(\\w+)",
-			"captures" : {
-				"1" : { "name" :  "keyword.other"},
-				"2" : { "name" :  "variable.name"}
-			}
+
+			"begin": "(BEFORE|PRIORTO|AFTER|UNTIL)",
+			"end": "$\\n?",
+			"beginCaptures": {
+				"0": {
+					"name": "keyword.other.deadline.l4"
+				}
+			},
+			"patterns": [
+				{
+					"name": "support.function",
+					"match": "\\s+(\\w+)(.\\w+)?(\\s+[+-]\\s+)?(\\d+)?"
+				}
+			]
+
+
 		},
 		"with-limb": {
 			"name": "meta.deadline.l4",

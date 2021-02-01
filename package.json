@@ -12,6 +12,7 @@
 	"activationEvents": [
 		"onCommand:l4-extension.helloWorld",
 		"onCommand:ide-prototype.mkMarkdown",
+		"onLanguage:l4",
 		"onCommand:ide-prototype.mkGraph"
 	],
 	"main": "./out/extension.js",
@@ -58,6 +59,11 @@
 		"pretest": "npm run compile && npm run lint",
 		"lint": "eslint src --ext ts",
 		"test": "node ./out/test/runTest.js"
+	},
+	"dependencies": {
+		"vscode-languageclient": "^7.0.0",
+		"vscode-languageserver": "^7.0.0",
+		"vscode-languageserver-textdocument": "^1.0.1"
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.3",

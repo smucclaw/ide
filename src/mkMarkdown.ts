@@ -3,6 +3,7 @@ import { splitIfPanelExists, getFileFolderPaths } from './extension';
 import { runProcess } from './runProcess';
 
 export async function mkMarkdown() {
+  console.log("ququ");
   const currentPanel = vscode.window.activeTextEditor
     ? vscode.window.activeTextEditor.viewColumn
     : undefined;

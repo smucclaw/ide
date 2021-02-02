@@ -135,11 +135,35 @@
 		,
 		"define-limb": {
 			"name": "meta.define.l4",
-			"match": "(DEFINE)\\s+(\\w+)",
-			"captures" : {
-				"1" : { "name" :  "keyword.other"},
-				"2" : { "name" :  "variable.name"}
-			}
+      "begin": "(DEFINE|DEEM|DECLARE|ENTITY)\\s+(\\w+)",
+			"end": "\\s*(?=DEFINE|HENCE|ENTITY|RULE|WHEN|WHERE)",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.other"
+        }
+			},
+			"patterns": [
+        {
+          "name": "meta.isa.l4",
+          "match": "(\\w+)?\\s+(IS|ISA)\\s+(\\w+)",
+          "captures" : {
+            "1" : { "name" : "variable.name"},
+            "2" : { "name" : "keyword.control.l4" },
+            "3" : { "name" :  "variable.name"}
+            }
+        },
+        {
+          "name": "meta.asof.l4",
+          "match": "(ASOF)\\s+(\\w+)",
+          "captures" : {
+            "1" : { "name" :  "keyword.other"},
+            "2" : { "name" :  "variable.name"}
+          }
+        },
+				{
+					"include": "#with-limb"
+        }
+			]
 		}
 		,
 		"given-limb": {

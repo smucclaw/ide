@@ -30,6 +30,9 @@
       "include": "#with-limb"
     },
     {
+      "include": "#upon-limb"
+    },
+    {
       "include": "#entity"
     },
     {
@@ -65,7 +68,7 @@
     },
     "comments": {
       "name": "comment.line.double-slash",
-      "match": "//.*$"
+      "match": "(//.*$|--.*$)"
     },
     "rule": {
       "name": "meta.entity.rule.l4",
@@ -195,6 +198,22 @@
         "1": { "name": "keyword.other" },
         "2": { "name": "variable.name" }
       }
+    },
+    "upon-limb": {
+      "name": "meta.upon.l4",
+      "begin": "UPON",
+      "end": "$\\n?",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.other.upon.l4"
+        }
+      },
+      "patterns": [
+        {
+          "name": "support.function",
+          "match": "\\s+(\\w+)(.)*"
+        }
+      ]
     },
     "entity": {
       "name": "meta.entity.entity.l4",

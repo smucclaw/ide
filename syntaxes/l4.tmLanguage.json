@@ -1,184 +1,205 @@
 {
-	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-	"name": "l4",
-	"patterns": [
-		{
-			"include": "#keywords"
-		},
-		{
-			"include": "#strings"
-		}
-		,
-		{
-			"include": "#comments"
-		}
-		,
-		{
-			"include": "#rule"
-		},
-		{
-			"include": "#deontic-limb"
-		},
-		{
-			"include": "#define-limb"
-		},
-		{
-			"include": "#deadline-limb"
-		},
-		{
-			"include": "#given-limb"
-		},
-		{
-			"include": "#with-limb"
-		},
-		{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "l4",
+  "patterns": [
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#rule"
+    },
+    {
+      "include": "#deontic-limb"
+    },
+    {
+      "include": "#define-limb"
+    },
+    {
+      "include": "#deadline-limb"
+    },
+    {
+      "include": "#given-limb"
+    },
+    {
+      "include": "#with-limb"
+    },
+    {
 			"include": "#upon-limb"
 		},
-		{
-			"include": "#entity"
-		},
-		{
-			"include": "#party"
-		}
-	],
-	"repository": {
-		"keywords": {
-			"patterns": [{
-				"name": "keyword.other.party.l4",
-				"match": "\\b(EVERYBODY|ANYBODY|EVERYONE|ANYONE|NOBODY|NO-ONE|NOONE|NONE)\\b"
-			},
-			{
-				"name": "keyword.control.l4",
-				"match": "\\b(WHEN|UNLESS|WHERE|OR|AND|HENCE|IS|UNLIKELY|LIKELY|HAS|ISA|ARE)\\b"
-			}]
-		},
-		"strings": {
-			"name": "string.quoted.double.l4",
-			"begin": "(:\\w{2}:)?\"",
-			"end": "\"",
-			"beginCaptures" : {
-				"1" : { "name" : "storage.type.rule.l4" }
-			},
-			"patterns": [
-				{
-					"name": "constant.character.escape.l4",
-					"match": "\\\\."
-				}
-			]
-		},
+    {
+      "include": "#entity"
+    },
+    {
+      "include": "#party"
+    }
+  ],
+  "repository": {
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.other.party.l4",
+          "match": "\\b(EVERYBODY|ANYBODY|EVERYONE|ANYONE|NOBODY|NO-ONE|NOONE|NONE)\\b"
+        },
+        {
+          "name": "keyword.control.l4",
+          "match": "\\b(WHEN|UNLESS|WHERE|OR|AND|HENCE|IS|UNLIKELY|LIKELY|HAS|ISA|ARE)\\b"
+        }
+      ]
+    },
+    "strings": {
+      "name": "string.quoted.double.l4",
+      "begin": "(:\\w{2}:)?\"",
+      "end": "\"",
+      "beginCaptures": {
+        "1": { "name": "storage.type.rule.l4" }
+      },
+      "patterns": [
+        {
+          "name": "constant.character.escape.l4",
+          "match": "\\\\."
+        }
+      ]
+    },
 		"comments": {
 			"name": "comment.line.double-slash",
 			"match": "(//.*$|--.*$)"
 		},
-		"rule": {
-			"name": "meta.entity.rule.l4",
-			"match": "(RULE)\\s+(\\w+)?\\s+(\\w+)",
-			"captures" : {
-				"1" : { "name" : "storage.type.rule.l4" },
-				"2" : { "name" :  "entity.name.type"},
-				"3" : { "name" :  "variable.parameter.l4"}
-				}
-		},
-		"party": {
-			"name": "meta.entity.party.l4",
-			"begin": "PARTY",
-			"end": "$\\n?",
-			"beginCaptures": {
-				"0": {
-					"name": "storage.type.party.l4"
-				}
-			},
-			"patterns": [
-				{
-					"name": "entity.name.class.party.l4",
-					"match": "\\s+(\\w+)\\s+"
-				},
-				{
-					"include": "#as-alias"
-				}
-			]
-		},
-		"deontic-limb": {
-			"name": "meta.deontic.l4",
-			"begin": "(MAY|MUST|SHANT)\\s+(\\w+)\\s+(\\w+)",
-			"end": "$\\n?",
-			"beginCaptures": {
-				"1": {
-					"name": "keyword.other.deontic.l4"
-				},
-				"2": {
-					"name": "support.function"
-				},
-				"3": {
-					"name": "variable.name"
-				}
-			},
-			"patterns": [
-				{
-					"include": "#as-alias"
-				}
-			]
-		},
-		"as-alias": {
-			"name": "meta.alias.l4",
-			"match": "(AS)\\s+(\\w+)",
-			"captures" : {
-				"1" : { "name" :  "keyword.other"},
-				"2" : { "name" :  "variable.name"}
-			}
-		},
-		"when-limb": {
-			"name": "meta.when.l4",
-			"match": "(WHEN)\\s+(\\w+)",
-			"captures" : {
-				"1" : { "name" :  "keyword.other"},
-				"2" : { "name" :  "variable.name"}
-			}
-		}
-		,
-		"define-limb": {
-			"name": "meta.define.l4",
-			"match": "(DEFINE)\\s+(\\w+)",
-			"captures" : {
-				"1" : { "name" :  "keyword.other"},
-				"2" : { "name" :  "variable.name"}
-			}
-		}
-		,
-		"given-limb": {
-			"name": "meta.given.l4",
-			"match": "(GIVEN)\\s+(\\w+)",
-			"captures" : {
-				"1" : { "name" :  "keyword.other"},
-				"2" : { "name" :  "variable.name"}
-			}
-		}
-		,
-		"deadline-limb": {
-			"name": "meta.deadline.l4",
-			"begin": "(BEFORE|PRIORTO|AFTER|UNTIL)",
-			"end": "$\\n?",
-			"beginCaptures": {
-				"0": {
-					"name": "keyword.other.deadline.l4"
-				}
-			},
-			"patterns": [
-				{
-					"name": "support.function",
-					"match": "\\s+(\\w+)(.\\w+)?(\\s+[+-]\\s+)?(\\d+)?"
-				}
-			]
-		},
-		"with-limb": {
-			"name": "meta.deadline.l4",
-			"match": "(WITH|HAS|TYPE)\\s+(\\w+)",
-			"captures" : {
-				"1" : { "name" :  "keyword.other"},
-				"2" : { "name" :  "variable.name"}
-			}
-		},
-		"upon-limb": {
+    "rule": {
+      "name": "meta.entity.rule.l4",
+      "match": "(RULE)\\s+(\\w+)\\s+(\\w+)?",
+      "captures": {
+        "1": { "name": "storage.type.rule.l4" },
+        "2": { "name": "entity.name.type" },
+        "3": { "name": "variable.parameter.l4" }
+      }
+    },
+    "party": {
+      "name": "meta.entity.party.l4",
+      "begin": "PARTY",
+      "end": "$\\n?",
+      "beginCaptures": {
+        "0": {
+          "name": "storage.type.party.l4"
+        }
+      },
+      "patterns": [
+        {
+          "name": "entity.name.class.party.l4",
+          "match": "\\s+(\\w+)\\s+"
+        },
+        {
+          "include": "#as-alias"
+        }
+      ]
+    },
+    "deontic-limb": {
+      "name": "meta.deontic.l4",
+      "begin": "(MAY|MUST|SHANT)\\s+(\\w+)\\s+(\\w+)",
+      "end": "\\s*(?=BEFORE|HENCE|WHEN|RULE)",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.other.deontic.l4"
+        },
+        "2": {
+          "name": "support.function"
+        },
+        "3": {
+          "name": "variable.name"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#as-alias"
+        }
+      ]
+    },
+    "as-alias": {
+      "name": "meta.alias.l4",
+      "match": "(AS)\\s+(\\w+)",
+      "captures": {
+        "1": { "name": "keyword.other" },
+        "2": { "name": "variable.name" }
+      }
+    },
+    "when-limb": {
+      "name": "meta.when.l4",
+      "match": "(WHEN)\\s+(\\w+)",
+      "captures": {
+        "1": { "name": "keyword.other" },
+        "2": { "name": "variable.name" }
+      }
+    },
+    "define-limb": {
+      "name": "meta.define.l4",
+      "begin": "(DEFINE|DEEM|DECLARE|ENTITY)\\s+(\\w+)",
+      "end": "\\s*(?=DEFINE|HENCE|ENTITY|RULE|WHEN|WHERE)",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.other"
+        }
+      },
+      "patterns": [
+        {
+          "name": "meta.isa.l4",
+          "match": "(\\w+)?\\s+(IS|ISA)\\s+(\\w+)",
+          "captures": {
+            "1": { "name": "variable.name" },
+            "2": { "name": "keyword.control.l4" },
+            "3": { "name": "variable.name" }
+          }
+        },
+        {
+          "name": "meta.asof.l4",
+          "match": "(ASOF)\\s+(\\w+)",
+          "captures": {
+            "1": { "name": "keyword.other" },
+            "2": { "name": "variable.name" }
+          }
+        },
+        {
+          "include": "#with-limb"
+        }
+      ]
+    },
+    "given-limb": {
+      "name": "meta.given.l4",
+      "match": "(GIVEN)\\s+(\\w+)",
+      "captures": {
+        "1": { "name": "keyword.other" },
+        "2": { "name": "variable.name" }
+      }
+    },
+    "deadline-limb": {
+      "name": "meta.deadline.l4",
+      "begin": "(BEFORE|PRIORTO|AFTER|UNTIL)",
+      "end": "$\\n?",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.other.deadline.l4"
+        }
+      },
+      "patterns": [
+        {
+          "name": "support.function",
+          "match": "\\s+(\\w+)(.\\w+)?(\\s+[+-]\\s+)?(\\d+)?"
+        }
+      ]
+    },
+    "with-limb": {
+      "name": "meta.deadline.l4",
+      "match": "(WITH|HAS|TYPE)\\s+(\\w+)",
+      "captures": {
+        "1": { "name": "keyword.other" },
+        "2": { "name": "variable.name" }
+      }
+    },
+    "upon-limb": {
 			"name": "meta.upon.l4",
 			"begin": "UPON",
 			"end": "$\\n?",
@@ -194,33 +215,33 @@
 				}
 			]
 		},
-		"entity": {
-			"name": "meta.entity.entity.l4",
-			"begin": "(ENTITY)\\s+(\\w+)",
-			"end": "$\\n?",
-			"beginCaptures": {
-				"1": {
-					"name": "storage.type.party.l4"
-				},
-				"2" : { "name" :  "entity.name.class.l4"}
-			},
-			"patterns": [
-				{
-					"include": "#given-limb"
-				},
-				{
-					"include": "#with-limb"
-				},
-				{
-					"name": "entity.name.class.l4",
-					"match": "(ISA)\\s+(\\w+)",
-					"captures" : {
-						"1" : { "name" :  "keyword.other"},
-						"2" : { "name" :  "variable.name"}
-					}
-				}
-			]
-		}
-	},
-	"scopeName": "source.l4"
+    "entity": {
+      "name": "meta.entity.entity.l4",
+      "begin": "(ENTITY)\\s+(\\w+)",
+      "end": "$\\n?",
+      "beginCaptures": {
+        "1": {
+          "name": "storage.type.party.l4"
+        },
+        "2": { "name": "entity.name.class.l4" }
+      },
+      "patterns": [
+        {
+          "include": "#given-limb"
+        },
+        {
+          "include": "#with-limb"
+        },
+        {
+          "name": "entity.name.class.l4",
+          "match": "(ISA)\\s+(\\w+)",
+          "captures": {
+            "1": { "name": "keyword.other" },
+            "2": { "name": "variable.name" }
+          }
+        }
+      ]
+    }
+  },
+  "scopeName": "source.l4"
 }

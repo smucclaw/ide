@@ -78,18 +78,17 @@
     },
     "party": {
       "name": "meta.entity.party.l4",
-      "begin": "PARTY",
-      "end": "$\\n?",
+      "begin": "(PARTY)\\s+((\\w|\\.)+)",
+      "end": "\\s*(?=MUST|MAY|SHANT|HEREBY|AGREE|REPRESENT|WARRANT|REPRANT)",
       "beginCaptures": {
-        "0": {
+        "1": {
           "name": "storage.type.party.l4"
+        },
+        "2": {
+          "name": "entity.name.class.party.l4"
         }
       },
       "patterns": [
-        {
-          "name": "entity.name.class.party.l4",
-          "match": "\\s+(\\w+)\\s+"
-        },
         {
           "include": "#as-alias"
         }

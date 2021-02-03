@@ -30,8 +30,8 @@
       "include": "#with-limb"
     },
     {
-			"include": "#upon-limb"
-		},
+      "include": "#upon-limb"
+    },
     {
       "include": "#entity"
     },
@@ -66,10 +66,10 @@
         }
       ]
     },
-		"comments": {
-			"name": "comment.line.double-slash",
-			"match": "(//.*$|--.*$)"
-		},
+    "comments": {
+      "name": "comment.line.double-slash",
+      "match": "(//.*$|--.*$)"
+    },
     "rule": {
       "name": "meta.entity.rule.l4",
       "match": "(RULE)\\s+(\\w+)\\s+(\\w+)?",
@@ -200,21 +200,21 @@
       }
     },
     "upon-limb": {
-			"name": "meta.upon.l4",
-			"begin": "UPON",
-			"end": "$\\n?",
-			"beginCaptures": {
-				"0": {
-					"name": "keyword.other.upon.l4"
-				}
-			},
-			"patterns": [
-				{
-					"name": "support.function",
-					"match": "\\s+(\\w+)(.)*"
-				}
-			]
-		},
+      "name": "meta.upon.l4",
+      "begin": "UPON",
+      "end": "$\\n?",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.other.upon.l4"
+        }
+      },
+      "patterns": [
+        {
+          "name": "support.function",
+          "match": "\\s+(\\w+)(.)*"
+        }
+      ]
+    },
     "entity": {
       "name": "meta.entity.entity.l4",
       "begin": "(ENTITY)\\s+(\\w+)",

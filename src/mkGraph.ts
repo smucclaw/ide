@@ -32,7 +32,7 @@ function produceSvg(lstdout: any) {
 
 function produceDot(paths: { currentFolderInWorkplace: string; fileInActiveEditor: string }) {
   if (paths) {
-    return runProcess('l4 ' + paths.fileInActiveEditor, {
+    return runProcess('l4 dot < ' + paths.fileInActiveEditor, {
       cwd: paths.currentFolderInWorkplace,
     });
   }

@@ -2,7 +2,6 @@ import * as vscode from 'vscode';
 import { splitIfPanelExists, getFileFolderPaths } from './extension';
 import { runProcess } from './runProcess';
 
-
 export async function mkGraph() {
   const currentPanel = vscode.window.activeTextEditor
     ? vscode.window.activeTextEditor.viewColumn
@@ -11,7 +10,12 @@ export async function mkGraph() {
   // ensure new panel opens instead of new tab
   splitIfPanelExists(currentPanel);
 
-  const panel = vscode.window.createWebviewPanel('mkGraph', 'L4 Graph', vscode.ViewColumn.Beside, {});
+  const panel = vscode.window.createWebviewPanel(
+    'mkGraph',
+    'L4 Graph',
+    vscode.ViewColumn.Beside,
+    {},
+  );
 
   // Get paths for child_process
   const fileFolderPaths = getFileFolderPaths();

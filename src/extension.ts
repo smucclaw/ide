@@ -28,13 +28,13 @@ export function splitIfPanelExists(panel: vscode.ViewColumn | undefined) {
 
 export function getFileFolderPaths() {
   if (vscode.workspace.workspaceFolders && vscode.window.activeTextEditor) {
-      // Get path to current folder open in workspace
-      const currentFolderInWorkplace = vscode.workspace.workspaceFolders[0].uri.path;
+    // Get path to current folder open in workspace
+    const currentFolderInWorkplace = vscode.workspace.workspaceFolders[0].uri.path;
 
-      // Get path to current file in active editor
-      const fileInActiveEditor = vscode.window.activeTextEditor.document.fileName;
+    // Get path to current file in active editor
+    const fileInActiveEditor = vscode.window.activeTextEditor.document.fileName;
 
-      return { currentFolderInWorkplace, fileInActiveEditor };
+    return { currentFolderInWorkplace, fileInActiveEditor };
   }
   return { currentFolderInWorkplace: 'No folder found', fileInActiveEditor: 'No file found' };
 }

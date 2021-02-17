@@ -13,23 +13,29 @@
 		"onCommand:l4-extension.helloWorld",
 		"onCommand:ide-prototype.mkMarkdown",
 		"onLanguage:l4",
-		"onCommand:ide-prototype.mkGraph"
+		"onCommand:ide-prototype.mkGraph",
+		"onCommand:ide-prototype.restartL4"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
 				"command": "l4-extension.helloWorld",
-				"title": "Hello World"
+				"title": "l4: Hello World"
 			},
 			{
 				"command": "ide-prototype.mkMarkdown",
-				"title": "Generate Markdown"
+				"title": "l4: Generate Markdown"
 			},
 			{
 				"command": "ide-prototype.mkGraph",
-				"title": "Generate Graph"
+				"title": "l4: Generate Graph"
+			},
+			{
+				"command": "ide-prototype.restartL4",
+				"title": "L4: Restart language server"
 			}
+
 		],
 		"languages": [
 			{

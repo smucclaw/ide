@@ -4,15 +4,13 @@
 	"description": "Language support for L4",
 	"version": "0.0.1",
 	"engines": {
-		"vscode": "^1.52.0"
+		"vscode": "^1.53.0"
 	},
 	"categories": [
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:l4-extension.helloWorld",
-		"onCommand:ide-prototype.mkMarkdown",
-		"onCommand:ide-prototype.mkGraph"
+		"onLanguage:l4"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -58,6 +56,9 @@
 		"pretest": "npm run compile && npm run lint",
 		"lint": "eslint src --ext ts",
 		"test": "node ./out/test/runTest.js"
+	},
+	"dependencies": {
+		"vscode-languageclient": "^7.0.0"
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.3",

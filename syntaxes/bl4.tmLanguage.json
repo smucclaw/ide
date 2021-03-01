@@ -7,6 +7,9 @@
     },
     {
       "include": "#strings"
+    },
+    {
+      "include": "#lexicon"
     }
   ],
   "repository": {
@@ -27,6 +30,32 @@
     "comments": {
       "name": "comment.line.hash",
       "match": "(#.*$)"
+    },
+    "variable": {
+      "name": "variable.name",
+      "match": "(\\p{Alpha}(?:\\w|\\')*)"
+    },
+    "arrow": {
+      "name": "keyword.control.arrow.bl4",
+      "match": "->"
+    },
+    "lexicon": {
+      "name": "meta.entity.party.l4",
+      "begin": "(lexicon)",
+      "end": "\\s*(?=decl)",
+      "beginCaptures": {
+        "1": {
+          "name": "storage.type.lexicon.l4"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#variable"
+        },
+        {
+          "include": "#arrow"
+        }
+      ]
     }
   },
   "scopeName": "source.bl4"

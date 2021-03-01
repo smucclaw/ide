@@ -1,0 +1,33 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "bl4",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#strings"
+    }
+  ],
+  "repository": {
+    "strings": {
+      "name": "string.quoted.double.l4",
+      "begin": "(:\\w{2}:)?\"",
+      "end": "\"",
+      "beginCaptures": {
+        "1": { "name": "storage.type.rule.l4" }
+      },
+      "patterns": [
+        {
+          "name": "constant.character.escape.l4",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "comments": {
+      "name": "comment.line.hash",
+      "match": "(#.*$)"
+    }
+  },
+  "scopeName": "source.bl4"
+}

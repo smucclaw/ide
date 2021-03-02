@@ -6,13 +6,30 @@
       "include": "#comments"
     },
     {
+      "include": "#keywords"
+    },
+    {
       "include": "#strings"
     },
     {
       "include": "#lexicon"
+    },
+    {
+      "include": "#and"
+    },
+    {
+      "include": "#class-dec"
     }
   ],
   "repository": {
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.l4",
+          "match": "\\b(not)\\b"
+        }
+      ]
+    },
     "strings": {
       "name": "string.quoted.double.l4",
       "begin": "(:\\w{2}:)?\"",
@@ -27,6 +44,10 @@
         }
       ]
     },
+    "type": {
+      "name": "entity.name.type",
+      "match": "(?<=\\:|->)\\s+?\\w+|\\((\\w+\\,\\s*\\w+)\\)"
+    },
     "comments": {
       "name": "comment.line.hash",
       "match": "(#.*$)"
@@ -39,10 +60,36 @@
       "name": "keyword.control.arrow.bl4",
       "match": "->"
     },
+    "class-dec": {
+      "name": "meta.entity.class.l4",
+      "begin": "(class)\\s+(\\w+)",
+      "end": "(?=})",
+      "captures": {
+        "1": {
+          "name": "storage.type.class.l4"
+        },
+        "2": {
+          "name": "variable.name"
+        }
+      },
+      "patterns": [
+        {
+          "name": "meta.extends.l4",
+          "match": "(extends)\\s+(\\w+)",
+          "captures": {
+            "1": { "name": "keyword.other" },
+            "2": { "name": "variable.name" }
+          }
+        },
+        {
+         "include": "#type"
+        }
+      ]
+    },
     "lexicon": {
       "name": "meta.entity.party.l4",
       "begin": "(lexicon)",
-      "end": "\\s*(?=decl)",
+      "end": "\\s*(?=decl|class)",
       "beginCaptures": {
         "1": {
           "name": "storage.type.lexicon.l4"

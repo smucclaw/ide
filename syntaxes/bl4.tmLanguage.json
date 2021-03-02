@@ -6,19 +6,38 @@
       "include": "#comments"
     },
     {
+      "include": "#keywords"
+    },
+    {
       "include": "#strings"
     },
     {
       "include": "#lexicon"
+    },
+    {
+      "include": "#rule"
+    },
+    {
+      "include": "#and"
     }
   ],
   "repository": {
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.l4",
+          "match": "\\b(not)\\b"
+        }
+      ]
+    },
     "strings": {
       "name": "string.quoted.double.l4",
       "begin": "(:\\w{2}:)?\"",
       "end": "\"",
       "beginCaptures": {
-        "1": { "name": "storage.type.rule.l4" }
+        "1": {
+          "name": "storage.type.rule.l4"
+        }
       },
       "patterns": [
         {
@@ -26,6 +45,10 @@
           "match": "\\\\."
         }
       ]
+    },
+    "type": {
+      "name": "entity.name.type",
+      "match": "(?<=\\:|->)\\s+?\\w+|\\((\\w+\\,\\s*\\w+)\\)"
     },
     "comments": {
       "name": "comment.line.hash",
@@ -39,10 +62,81 @@
       "name": "keyword.control.arrow.bl4",
       "match": "->"
     },
+    "and": {
+      "name": "keyword.control.and.bl4",
+      "match": "&&"
+    },
+    "rule": {
+      "name": "meta.entity.rule.l4",
+      "begin": "(rule)\\s+(\\<\\w+\\>)",
+      "end": "\\s*(?=rule)",
+      "captures": {
+        "1": {
+          "name": "storage.type.rule.l4"
+        },
+        "2": {
+          "name": "support.type"
+        }
+      },
+      "patterns": [
+        {
+          "name": "meta.for.l4",
+          "match": "(for)\\s+(\\w+\\:)\\s+(\\w+)\\,\\s+(\\w+\\:)\\s+(\\w+)",
+          "captures": {
+            "1": {
+              "name": "keyword.control.l4"
+            },
+            "2": {
+              "name": "variable.name"
+            },
+            "3": {
+              "name": "entity.name.type"
+            },
+            "4": {
+              "name": "variable.name"
+            },
+            "5": {
+              "name": "entity.name.type"
+            }
+          }
+        },
+        {
+          "name": "meta.rule.precond.l4",
+          "begin": "(if)",
+          "end": "(?=then)",
+          "captures": {
+            "1": {
+              "name": "keyword.control.l4"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#and"
+            },
+            {
+              "include": "#keywords"
+            },
+            {
+              "include": "#type"
+            }
+          ]
+        },
+        {
+          "name": "meta.rule.concl.l4",
+          "begin": "(then)",
+          "end": "\\n",
+          "captures": {
+            "1": {
+              "name": "keyword.control.l4"
+            }
+          }
+        }
+      ]
+    },
     "lexicon": {
       "name": "meta.entity.party.l4",
       "begin": "(lexicon)",
-      "end": "\\s*(?=decl)",
+      "end": "\\s*(?=decl|class)",
       "beginCaptures": {
         "1": {
           "name": "storage.type.lexicon.l4"

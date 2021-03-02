@@ -60,6 +60,10 @@
       "name": "keyword.control.arrow.bl4",
       "match": "->"
     },
+    "and": {
+      "name": "keyword.control.and.bl4",
+      "match": "&&"
+    },
     "class-dec": {
       "name": "meta.entity.class.l4",
       "begin": "(class)\\s+(\\w+)",

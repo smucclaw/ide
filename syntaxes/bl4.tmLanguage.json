@@ -10,9 +10,6 @@
     },
     {
       "include": "#lexicon"
-    },
-    {
-      "include": "#assertions"
     }
   ],
   "repository": {
@@ -57,22 +54,6 @@
         },
         {
           "include": "#arrow"
-        }
-      ]
-    },
-    "assertions": {
-      "name": "meta.entity.assert.l4",
-      "begin": "(assert)",
-      "end": "$\\n?",
-      "beginCaptures": {
-        "0": {
-          "name": "keyword.other.assert.l4"
-        }
-      },
-      "patterns": [
-        {
-          "name": "support.function",
-          "match": "\\s+(\\w+)(.\\w+)?(\\s+[+-]\\s+)?(\\d+)?"
         }
       ]
     }

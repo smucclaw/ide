@@ -25,29 +25,30 @@
     "keywords": {
       "patterns": [
         {
-          "name": "keyword.control.l4",
+          "name": "keyword.control.bl4",
           "match": "\\b(not)\\b"
         }
       ]
     },
     "strings": {
-      "name": "string.quoted.double.l4",
+      "name": "string.quoted.double.bl4",
       "begin": "(:\\w{2}:)?\"",
       "end": "\"",
       "beginCaptures": {
         "1": {
-          "name": "storage.type.rule.l4"
+          "name": "storage.type.rule.bl4"
         }
       },
       "patterns": [
         {
-          "name": "constant.character.escape.l4",
+          "name": "constant.character.escape.bl4",
           "match": "\\\\."
         }
       ]
     },
     "type": {
       "name": "entity.name.type",
+      "_comment": "lookbehind for colon or -> ; then match type | (type, type)",
       "match": "(?<=\\:|->)\\s+?\\w+|\\((\\w+\\,\\s*\\w+)\\)"
     },
     "comments": {
@@ -67,12 +68,12 @@
       "match": "&&"
     },
     "rule": {
-      "name": "meta.entity.rule.l4",
+      "name": "meta.entity.rule.bl4",
       "begin": "(rule)\\s+(\\<\\w+\\>)",
       "end": "\\s*(?=rule)",
       "captures": {
         "1": {
-          "name": "storage.type.rule.l4"
+          "name": "storage.type.rule.bl4"
         },
         "2": {
           "name": "support.type"
@@ -83,11 +84,11 @@
           "include": "#comments"
         },
         {
-          "name": "meta.for.l4",
+          "name": "meta.for.bl4",
           "match": "(for)\\s+(\\w+\\:)\\s+(\\w+)\\,\\s+(\\w+\\:)\\s+(\\w+)",
           "captures": {
             "1": {
-              "name": "keyword.control.l4"
+              "name": "keyword.control.bl4"
             },
             "2": {
               "name": "variable.name"
@@ -104,12 +105,12 @@
           }
         },
         {
-          "name": "meta.rule.precond.l4",
+          "name": "meta.rule.precond.bl4",
           "begin": "(if)",
           "end": "(?=then)",
           "captures": {
             "1": {
-              "name": "keyword.control.l4"
+              "name": "keyword.control.bl4"
             }
           },
           "patterns": [
@@ -125,24 +126,24 @@
           ]
         },
         {
-          "name": "meta.rule.concl.l4",
+          "name": "meta.rule.concl.bl4",
           "begin": "(then)",
           "end": "\\n",
           "captures": {
             "1": {
-              "name": "keyword.control.l4"
+              "name": "keyword.control.bl4"
             }
           }
         }
       ]
     },
     "lexicon": {
-      "name": "meta.entity.party.l4",
+      "name": "meta.entity.lexicon.bl4",
       "begin": "(lexicon)",
       "end": "\\s*(?=decl|class)",
       "beginCaptures": {
         "1": {
-          "name": "storage.type.lexicon.l4"
+          "name": "storage.type.lexicon.bl4"
         }
       },
       "patterns": [

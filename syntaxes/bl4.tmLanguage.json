@@ -50,7 +50,7 @@
     },
     "comments": {
       "name": "comment.line.hash",
-      "match": "(#.*$)"
+      "match": "(#\\s+.*$)"
     },
     "variable": {
       "name": "variable.name",

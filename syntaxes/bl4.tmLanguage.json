@@ -6,6 +6,9 @@
       "include": "#comments"
     },
     {
+      "include": "#rule"
+    },
+    {
       "include": "#keywords"
     },
     {
@@ -13,9 +16,6 @@
     },
     {
       "include": "#lexicon"
-    },
-    {
-      "include": "#rule"
     },
     {
       "include": "#and"
@@ -38,9 +38,7 @@
       "begin": "(:\\w{2}:)?\"",
       "end": "\"",
       "beginCaptures": {
-        "1": {
-          "name": "storage.type.rule.bl4"
-        }
+        "1": { "name": "storage.type.rule.bl4" }
       },
       "patterns": [
         {
@@ -69,6 +67,56 @@
     "and": {
       "name": "keyword.control.and.bl4",
       "match": "&&"
+    },
+    "class-dec": {
+      "name": "meta.entity.class.bl4",
+      "begin": "(class)\\s+(\\w+)",
+      "end": "(?=})",
+      "captures": {
+        "1": {
+          "name": "storage.type.class.bl4"
+        },
+        "2": {
+          "name": "entity.name.type.bl4"
+        }
+      },
+      "patterns": [
+        {
+          "name": "meta.extends.bl4",
+          "match": "(extends)\\s+(\\w+)",
+          "captures": {
+            "1": { "name": "keyword.other" },
+            "2": { "name": "variable.name" }
+          }
+        },
+        {
+          "include": "#type"
+        },
+        {
+          "include": "#comments"
+        }
+      ]
+    },
+    "lexicon": {
+      "name": "meta.entity.lexicon.bl4",
+      "begin": "(lexicon)",
+      "end": "\\s*(?=decl|class)",
+      "beginCaptures": {
+        "1": {
+          "name": "storage.type.lexicon.bl4"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#variable"
+        },
+        {
+          "include": "#arrow"
+        },
+        {
+          "include": "#comments"
+        }
+      ]
     },
     "rule": {
       "name": "meta.entity.rule.bl4",
@@ -137,60 +185,6 @@
               "name": "keyword.control.bl4"
             }
           }
-        }
-      ]
-    },
-    "class-dec": {
-      "name": "meta.entity.class.bl4",
-      "begin": "(class)\\s+(\\w+)",
-      "end": "(?=})",
-      "captures": {
-        "1": {
-          "name": "storage.type.class.bl4"
-        },
-        "2": {
-          "name": "entity.name.type.bl4"
-        }
-      },
-      "patterns": [
-        {
-          "name": "meta.extends.bl4",
-          "match": "(extends)\\s+(\\w+)",
-          "captures": {
-            "1": {
-              "name": "keyword.other"
-            },
-            "2": {
-              "name": "variable.name"
-            }
-          }
-        },
-        {
-          "include": "#type"
-        },
-        {
-          "include": "#comments"
-        }
-      ]
-    },
-    "lexicon": {
-      "name": "meta.entity.lexicon.bl4",
-      "begin": "(lexicon)",
-      "end": "\\s*(?=decl|class)",
-      "beginCaptures": {
-        "1": {
-          "name": "storage.type.lexicon.bl4"
-        }
-      },
-      "patterns": [
-        {
-          "include": "#variable"
-        },
-        {
-          "include": "#arrow"
-        },
-        {
-          "include": "#comments"
         }
       ]
     }

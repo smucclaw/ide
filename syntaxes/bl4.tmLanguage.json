@@ -6,30 +6,52 @@
       "include": "#comments"
     },
     {
+      "include": "#keywords"
+    },
+    {
       "include": "#strings"
     },
     {
       "include": "#lexicon"
+    },
+    {
+      "include": "#and"
+    },
+    {
+      "include": "#class-dec"
     }
   ],
   "repository": {
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.bl4",
+          "match": "\\b(not)\\b"
+        }
+      ]
+    },
     "strings": {
-      "name": "string.quoted.double.l4",
+      "name": "string.quoted.double.bl4",
       "begin": "(:\\w{2}:)?\"",
       "end": "\"",
       "beginCaptures": {
-        "1": { "name": "storage.type.rule.l4" }
+        "1": { "name": "storage.type.rule.bl4" }
       },
       "patterns": [
         {
-          "name": "constant.character.escape.l4",
+          "name": "constant.character.escape.bl4",
           "match": "\\\\."
         }
       ]
     },
+    "type": {
+      "name": "entity.name.type",
+      "_comment": "lookbehind for colon or -> ; then match type | (type, type)",
+      "match": "(?<=\\:|->)\\s+?\\w+|\\((\\w+\\,\\s*\\w+)\\)"
+    },
     "comments": {
       "name": "comment.line.hash",
-      "match": "(#.*$)"
+      "match": "(#\\s+.*$)"
     },
     "variable": {
       "name": "variable.name",
@@ -39,13 +61,46 @@
       "name": "keyword.control.arrow.bl4",
       "match": "->"
     },
+    "and": {
+      "name": "keyword.control.and.bl4",
+      "match": "&&"
+    },
+    "class-dec": {
+      "name": "meta.entity.class.bl4",
+      "begin": "(class)\\s+(\\w+)",
+      "end": "(?=})",
+      "captures": {
+        "1": {
+          "name": "storage.type.class.bl4"
+        },
+        "2": {
+          "name": "entity.name.type.bl4"
+        }
+      },
+      "patterns": [
+        {
+          "name": "meta.extends.bl4",
+          "match": "(extends)\\s+(\\w+)",
+          "captures": {
+            "1": { "name": "keyword.other" },
+            "2": { "name": "variable.name" }
+          }
+        },
+        {
+         "include": "#type"
+        },
+        {
+          "include": "#comments"
+        }
+      ]
+    },
     "lexicon": {
-      "name": "meta.entity.party.l4",
+      "name": "meta.entity.lexicon.bl4",
       "begin": "(lexicon)",
-      "end": "\\s*(?=decl)",
+      "end": "\\s*(?=decl|class)",
       "beginCaptures": {
         "1": {
-          "name": "storage.type.lexicon.l4"
+          "name": "storage.type.lexicon.bl4"
         }
       },
       "patterns": [
@@ -54,6 +109,9 @@
         },
         {
           "include": "#arrow"
+        },
+        {
+          "include": "#comments"
         }
       ]
     }

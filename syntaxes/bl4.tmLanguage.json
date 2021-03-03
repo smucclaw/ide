@@ -25,27 +25,28 @@
     "keywords": {
       "patterns": [
         {
-          "name": "keyword.control.l4",
+          "name": "keyword.control.bl4",
           "match": "\\b(not)\\b"
         }
       ]
     },
     "strings": {
-      "name": "string.quoted.double.l4",
+      "name": "string.quoted.double.bl4",
       "begin": "(:\\w{2}:)?\"",
       "end": "\"",
       "beginCaptures": {
-        "1": { "name": "storage.type.rule.l4" }
+        "1": { "name": "storage.type.rule.bl4" }
       },
       "patterns": [
         {
-          "name": "constant.character.escape.l4",
+          "name": "constant.character.escape.bl4",
           "match": "\\\\."
         }
       ]
     },
     "type": {
       "name": "entity.name.type",
+      "_comment": "lookbehind for colon or -> ; then match type | (type, type)",
       "match": "(?<=\\:|->)\\s+?\\w+|\\((\\w+\\,\\s*\\w+)\\)"
     },
     "comments": {
@@ -65,20 +66,20 @@
       "match": "&&"
     },
     "class-dec": {
-      "name": "meta.entity.class.l4",
+      "name": "meta.entity.class.bl4",
       "begin": "(class)\\s+(\\w+)",
       "end": "(?=})",
       "captures": {
         "1": {
-          "name": "storage.type.class.l4"
+          "name": "storage.type.class.bl4"
         },
         "2": {
-          "name": "variable.name"
+          "name": "entity.name.type.bl4"
         }
       },
       "patterns": [
         {
-          "name": "meta.extends.l4",
+          "name": "meta.extends.bl4",
           "match": "(extends)\\s+(\\w+)",
           "captures": {
             "1": { "name": "keyword.other" },
@@ -94,12 +95,12 @@
       ]
     },
     "lexicon": {
-      "name": "meta.entity.party.l4",
+      "name": "meta.entity.lexicon.bl4",
       "begin": "(lexicon)",
       "end": "\\s*(?=decl|class)",
       "beginCaptures": {
         "1": {
-          "name": "storage.type.lexicon.l4"
+          "name": "storage.type.lexicon.bl4"
         }
       },
       "patterns": [

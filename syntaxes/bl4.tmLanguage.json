@@ -52,7 +52,7 @@
     },
     "comments": {
       "name": "comment.line.hash",
-      "match": "(#.*$)"
+      "match": "(#\\s+.*$)"
     },
     "variable": {
       "name": "variable.name",
@@ -79,6 +79,9 @@
         }
       },
       "patterns": [
+        {
+          "include": "#comments"
+        },
         {
           "name": "meta.for.l4",
           "match": "(for)\\s+(\\w+\\:)\\s+(\\w+)\\,\\s+(\\w+\\:)\\s+(\\w+)",
@@ -148,6 +151,9 @@
         },
         {
           "include": "#arrow"
+        },
+        {
+          "include": "#comments"
         }
       ]
     }

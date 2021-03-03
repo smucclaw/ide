@@ -65,7 +65,7 @@
       "match": "->"
     },
     "and": {
-      "name": "keyword.control.and.bl4",
+      "name": "keyword.operator.and.bl4",
       "match": "&&"
     },
     "class-dec": {
@@ -86,7 +86,7 @@
           "match": "(extends)\\s+(\\w+)",
           "captures": {
             "1": { "name": "keyword.other" },
-            "2": { "name": "variable.name" }
+            "2": { "name": "entity.name.type.bl4" }
           }
         },
         {

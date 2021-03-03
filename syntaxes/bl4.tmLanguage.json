@@ -19,6 +19,9 @@
     },
     {
       "include": "#and"
+    },
+    {
+      "include": "#class-dec"
     }
   ],
   "repository": {
@@ -134,6 +137,39 @@
               "name": "keyword.control.bl4"
             }
           }
+        }
+      ]
+    },
+    "class-dec": {
+      "name": "meta.entity.class.bl4",
+      "begin": "(class)\\s+(\\w+)",
+      "end": "(?=})",
+      "captures": {
+        "1": {
+          "name": "storage.type.class.bl4"
+        },
+        "2": {
+          "name": "entity.name.type.bl4"
+        }
+      },
+      "patterns": [
+        {
+          "name": "meta.extends.bl4",
+          "match": "(extends)\\s+(\\w+)",
+          "captures": {
+            "1": {
+              "name": "keyword.other"
+            },
+            "2": {
+              "name": "variable.name"
+            }
+          }
+        },
+        {
+          "include": "#type"
+        },
+        {
+          "include": "#comments"
         }
       ]
     },

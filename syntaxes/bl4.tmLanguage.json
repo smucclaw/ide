@@ -87,6 +87,9 @@
         },
         {
          "include": "#type"
+        },
+        {
+          "include": "#comments"
         }
       ]
     },
@@ -105,6 +108,9 @@
         },
         {
           "include": "#arrow"
+        },
+        {
+          "include": "#comments"
         }
       ]
     }

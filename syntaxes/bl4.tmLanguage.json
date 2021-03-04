@@ -90,7 +90,7 @@
           }
         },
         {
-          "include": "#type"
+         "include": "#type"
         },
         {
           "include": "#comments"

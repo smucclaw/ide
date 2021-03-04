@@ -6,6 +6,9 @@
       "include": "#comments"
     },
     {
+      "include": "#rule"
+    },
+    {
       "include": "#keywords"
     },
     {
@@ -62,7 +65,7 @@
       "match": "->"
     },
     "and": {
-      "name": "keyword.control.and.bl4",
+      "name": "keyword.operator.and.bl4",
       "match": "&&"
     },
     "class-dec": {
@@ -83,7 +86,7 @@
           "match": "(extends)\\s+(\\w+)",
           "captures": {
             "1": { "name": "keyword.other" },
-            "2": { "name": "variable.name" }
+            "2": { "name": "entity.name.type.bl4" }
           }
         },
         {
@@ -112,6 +115,76 @@
         },
         {
           "include": "#comments"
+        }
+      ]
+    },
+    "rule": {
+      "name": "meta.entity.rule.bl4",
+      "begin": "(rule)\\s+(\\<\\w+\\>)",
+      "end": "\\s*(?=rule)",
+      "captures": {
+        "1": {
+          "name": "storage.type.rule.bl4"
+        },
+        "2": {
+          "name": "support.type"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#comments"
+        },
+        {
+          "name": "meta.for.bl4",
+          "match": "(for)\\s+(\\w+\\:)\\s+(\\w+)\\,\\s+(\\w+\\:)\\s+(\\w+)",
+          "captures": {
+            "1": {
+              "name": "keyword.control.bl4"
+            },
+            "2": {
+              "name": "variable.name"
+            },
+            "3": {
+              "name": "entity.name.type"
+            },
+            "4": {
+              "name": "variable.name"
+            },
+            "5": {
+              "name": "entity.name.type"
+            }
+          }
+        },
+        {
+          "name": "meta.rule.precond.bl4",
+          "begin": "(if)",
+          "end": "(?=then)",
+          "captures": {
+            "1": {
+              "name": "keyword.control.bl4"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#and"
+            },
+            {
+              "include": "#keywords"
+            },
+            {
+              "include": "#type"
+            }
+          ]
+        },
+        {
+          "name": "meta.rule.concl.bl4",
+          "begin": "(then)",
+          "end": "\\n",
+          "captures": {
+            "1": {
+              "name": "keyword.control.bl4"
+            }
+          }
         }
       ]
     }

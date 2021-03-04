@@ -18,6 +18,9 @@
       "include": "#lexicon"
     },
     {
+      "include": "#assertions"
+    },
+    {
       "include": "#and"
     },
     {
@@ -185,6 +188,22 @@
               "name": "keyword.control.bl4"
             }
           }
+        }
+      ]
+    },
+    "assertions": {
+      "name": "meta.entity.assert.bl4",
+      "begin": "(assert)",
+      "end": "$\\n?",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.other.assert.bl4"
+        }
+      },
+      "patterns": [
+        {
+          "name": "support.function",
+          "match": "\\s+(\\w+)(.\\w+)?(\\s+[+-]\\s+)?(\\d+)?"
         }
       ]
     }

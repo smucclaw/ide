@@ -124,7 +124,7 @@
     "rule": {
       "name": "meta.entity.rule.bl4",
       "begin": "(rule)\\s+(\\<\\w+\\>)",
-      "end": "\\s*(?=rule)",
+      "end": "\\s*(?=rule|assert)",
       "captures": {
         "1": {
           "name": "storage.type.rule.bl4"

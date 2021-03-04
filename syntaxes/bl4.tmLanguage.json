@@ -25,6 +25,9 @@
     },
     {
       "include": "#class-dec"
+    },
+    {
+      "include": "#global-dec"
     }
   ],
   "repository": {
@@ -93,7 +96,7 @@
           }
         },
         {
-         "include": "#type"
+          "include": "#type"
         },
         {
           "include": "#comments"
@@ -198,6 +201,22 @@
       "beginCaptures": {
         "0": {
           "name": "keyword.other.assert.bl4"
+        }
+      },
+      "patterns": [
+        {
+          "name": "support.function",
+          "match": "\\s+(\\w+)(.\\w+)?(\\s+[+-]\\s+)?(\\d+)?"
+        }
+      ]
+    },
+    "global-dec": {
+      "name": "meta.entity.global.bl4",
+      "begin": "(decl)",
+      "end": "$\\n?",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.other.global.bl4"
         }
       },
       "patterns": [

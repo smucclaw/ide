@@ -38,28 +38,12 @@
 				"extensions": [
 					".l4"
 				],
-				"configuration": "./language-configuration.json"
-			},
-			{
-				"id": "bl4",
-				"aliases": [
-					"bl4",
-					"bl4"
-				],
-				"extensions": [
-					".bl4"
-				],
 				"configuration": "./bl4-language-configuration.json"
 			}
 		],
 		"grammars": [
 			{
 				"language": "l4",
-				"scopeName": "source.l4",
-				"path": "./syntaxes/l4.tmLanguage.json"
-			},
-			{
-				"language": "bl4",
 				"scopeName": "source.bl4",
 				"path": "./syntaxes/bl4.tmLanguage.json"
 			}

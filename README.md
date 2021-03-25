@@ -4,7 +4,7 @@ Provides L4 support for VS Code.
 
 ## Preview
 
-![First preview screenshot] (./media/preview.png)
+![First preview screenshot](media/preview.png)
 
 ## Features
 

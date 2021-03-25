@@ -29,8 +29,8 @@ Accessed by opening the command palette (`Ctrl+Shift+P` on Linux/Windows and `Cm
 
 ### 0.0.1
 
-Initial release; basic syntax highlighting.
+Basic syntax highlighting.
 
 ## Troubleshooting
 
-Please open an issue if you encounter any problems when using the extension. 
+Please open an issue if you encounter any problems while using the extension. 

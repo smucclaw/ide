@@ -14,7 +14,7 @@ Provides L4 support for VS Code.
 
 ## Installation & Prerequisites
 
-- Ensure that [L4] (https://github.com/smucclaw/baby-l4) is downloaded 
+- Ensure that [L4](https://github.com/smucclaw/baby-l4) is downloaded 
 - Install the L4 extension in VS Code 
 - Open any `.bl4` file in VS Code
 

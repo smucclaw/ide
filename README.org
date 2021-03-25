@@ -1,3 +1,0 @@
-#+TITLE: the future home of our IDE work
--
-~

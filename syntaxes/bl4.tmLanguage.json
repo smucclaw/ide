@@ -54,7 +54,7 @@
       ]
     },
     "type": {
-      "name": "entity.name.type",
+      "name": "entity.name.type.bl4",
       "_comment": "lookbehind for colon or -> ; then match type | (type, type)",
       "match": "(?<=\\:|->)\\s+?\\w+|\\((\\w+\\,\\s*\\w+)\\)"
     },
@@ -77,7 +77,7 @@
     "class-dec": {
       "name": "meta.entity.class.bl4",
       "begin": "(class)\\s+(\\w+)",
-      "end": "\\s*(?=decl|class)",
+      "end": "\\s*(?=decl|class|rule|assert)",
       "captures": {
         "1": {
           "name": "storage.type.class.bl4"
@@ -124,11 +124,26 @@
         }
       ]
     },
+    "for-block": {
+      "name": "meta.entity.rule.bl4",
+      "begin": "(for)",
+      "end": "\\s*(?=if)",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.control.bl4"
+        }
+      },
+      "patterns": [
+        {
+              "include": "#for-var-decl"
+        }
+      ]
+    },
     "rule": {
       "name": "meta.entity.rule.bl4",
       "begin": "(rule)\\s+(\\<\\w+\\>)",
       "end": "\\s*(?=rule|assert)",
-      "captures": {
+      "beginCaptures": {
         "1": {
           "name": "storage.type.rule.bl4"
         },
@@ -141,31 +156,13 @@
           "include": "#comments"
         },
         {
-          "name": "meta.for.bl4",
-          "match": "(for)\\s+(\\w+\\:)\\s+(\\w+)\\,\\s+(\\w+\\:)\\s+(\\w+)",
-          "captures": {
-            "1": {
-              "name": "keyword.control.bl4"
-            },
-            "2": {
-              "name": "variable.name"
-            },
-            "3": {
-              "name": "entity.name.type"
-            },
-            "4": {
-              "name": "variable.name"
-            },
-            "5": {
-              "name": "entity.name.type"
-            }
-          }
+          "include": "#for-block"
         },
         {
           "name": "meta.rule.precond.bl4",
           "begin": "(if)",
           "end": "(?=then)",
-          "captures": {
+          "beginCaptures": {
             "1": {
               "name": "keyword.control.bl4"
             }
@@ -179,6 +176,9 @@
             },
             {
               "include": "#type"
+            },
+            {
+              "include": "#quantification-expression"
             }
           ]
         },
@@ -227,9 +227,64 @@
       },
       "patterns": [
             {
-              "include": "#type"
+              "include": "#comma-type"
+            },
+            {
+              "include": "#arrow-type"
+            },
+            {
+              "include": "#simple-type"
             }
       ]
+    },
+    "simple-type": {
+      "name": "entity.name.type.bl4",
+      "match": "(\\w+)"
+    },
+    "comma-type": {
+      "name": "meta.entity.name.comma-type.bl4",
+      "begin": "\\(",
+      "end": "\\)",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.control.bracket.bl4"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "keyword.control.bracket.bl4"
+        }
+      },
+      "patterns": [
+            {
+              "include": "#simple-type"
+            },
+            {
+              "include": "#comma-type"
+            },
+            {
+              "name": "keyword.control.comma.bl4",
+              "match": ","
+            },
+            {
+              "include": "#arrow-type"
+            }
+      ]
+    },
+    "arrow-type": {
+      "name": "meta.entity.name.arrow-type.bl4",
+      "match": "(\\.*)\\s*(->)\\s*(\\.*)",
+      "captures": {
+        "1": {
+          "name": "entity.name.type.bl4"
+        },
+        "2": {
+          "name": "keyword.control.arrow.bl4"
+        },
+        "3": {
+          "name": "entity.name.type.bl4"
+        }
+      }
     },
     "field-dec": {
       "name": "meta.entity.field.bl4",
@@ -245,9 +300,54 @@
       },
       "patterns": [
             {
-              "include": "#type"
+              "include": "#comma-type"
+            },
+            {
+              "include": "#arrow-type"
+            },
+            {
+              "include": "#simple-type"
             }
       ]
+    },
+    "for-var-decl": {
+      "name": "meta.entity.field.bl4",
+      "begin": "(\\w+)\\s*(:)",
+      "end": "\\s*(?=(,|if))",
+      "beginCaptures": {
+        "1": {
+          "name": "variable.name.global.bl4"
+        },
+        "2": {
+          "name": "keyword.other.colon.bl4"
+        }
+      },
+      "patterns": [
+            {
+              "include": "#comma-type"
+            },
+            {
+              "include": "#arrow-type"
+            },
+            {
+              "include": "#simple-type"
+            }
+      ]
+    },
+    "quantification-expression": {
+      "name": "meta.qexpr.bl4",
+      "match": "(forall|exists)\\s*(\\w+)\\s*:([^\\.]*)\\.",
+      "captures": {
+        "1": {
+          "name": "keyword.control.quant.bl4"
+        },
+        "2": {
+          "name": "variable.name.bl4"
+        },
+        "3": {
+          "name": "entity.name.type.bl4"
+        }
+      }
     }
   },
   "scopeName": "source.bl4"

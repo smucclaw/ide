@@ -12,18 +12,31 @@ let client: LanguageClient;
 
 export function activate(context: vscode.ExtensionContext) {
   // The server is implemented in node
+//'C:\\Users\\rusla\\.jdks\\openjdk-16\\bin\\java.exe --enable-preview -cp C:\\Users\\rusla\\code\\sandbox\\bl4-antlr\\target\\bl4-antlr-1.0-SNAPSHOT-shaded.jar sg.edu.smu.cclaw.lsp.BL4LanguageServerLauncher';
 
-  const serverCommand = 'lsp-server-bl4';
-
+  const serverCommand = 'C:\\Users\\rusla\\.jdks\\openjdk-16\\bin\\java.exe';
+    
   // If the extension is launched in debug mode then the debug server options are used
   // Otherwise the run options are used
   const serverOptions: ServerOptions = {
     run: {
       command: serverCommand,
+      args: [
+        '--enable-preview',
+        '-cp',
+        'C:\\Users\\rusla\\code\\sandbox\\bl4-antlr\\target\\bl4-antlr-1.0-SNAPSHOT-shaded.jar',
+        'sg.edu.smu.cclaw.lsp.BL4LanguageServerLauncher',
+      ],
       transport: TransportKind.stdio,
     },
     debug: {
       command: serverCommand,
+      args: [
+        '--enable-preview',
+        '-cp',
+        'C:\\Users\\rusla\\code\\sandbox\\bl4-antlr\\target\\bl4-antlr-1.0-SNAPSHOT-shaded.jar',
+        'sg.edu.smu.cclaw.lsp.BL4LanguageServerLauncher',
+      ],
       transport: TransportKind.stdio,
     },
   };

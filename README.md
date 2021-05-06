@@ -9,7 +9,7 @@ Provides L4 support for VS Code.
 ## Features
 
 - Syntax highlighting (currently regex-based)
-- Generate natural language output from L4 (WIP)
+- Generate natural language output from L4 
 - Generate graph from L4 (WIP)
 
 ## Installation & Prerequisites
@@ -19,12 +19,11 @@ Provides L4 support for VS Code.
 - Open this repository in VS Code, then press F5. This will compile and run the extension in a new Extension Development Host window.
 - Open any `.bl4` file in the Extension Development Host window
 
-## Commands [WIP]
-
+## Commands 
 Accessed by opening the command palette (`Ctrl+Shift+P` on Linux/Windows and `Cmd+Shift+P` on Mac), and entering the command name:
 
 - `Generate markdown` (natural language output)
-- `Generate graph` (via dot file)
+- `Generate graph` (via dot file) (WIP)
 
 ## Release Notes
 

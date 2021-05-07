@@ -29,7 +29,7 @@ export async function mkMarkdown() {
 
 function produceNatLang(paths: { currentFolderInWorkplace: string; fileInActiveEditor: string }) {
   if (paths) {
-    return runProcess('l4 gf en < ' + paths.fileInActiveEditor, {
+    return runProcess('l4 gf en ' + paths.fileInActiveEditor, {
       cwd: paths.currentFolderInWorkplace,
     });
   }

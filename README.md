@@ -19,12 +19,12 @@ Provides L4 support for VS Code.
 - Typechecking
 - Error display
 
-## Installation & Prerequisites 
+## Installation & Prerequisites
 
 - Follow installation instructions over at the [baby-l4](https://github.com/smucclaw/baby-l4) repository to install L4
 - Clone this repository
 - Open this repository in VS Code, then press F5. This will compile and run the extension in a new Extension Development Host window.
-- Open any `.bl4` file in the Extension Development Host window
+- Open any `.l4` file in the Extension Development Host window
 - To see LSP output while the extension is running, go to the Output tab (to the left of the VSCode terminal) and toggle the dropdown at the top right corner to 'L4 Language Server':
 
 ![Output panel](./media/lsp_output.png)
@@ -48,7 +48,7 @@ If you'd like to contribute to the extension, please read the following sections
 
 - The extension provides a Language Client and a Language Server for L4
 - When the extension is activated, it starts the Language Client and spawns the Language Server in another process and communicates with it through the [Language Server Protocol](https://microsoft.github.io/language-server-protocol/specifications/specification-current/#textDocument_hover).
-- When you do something with an l4 file, like hover over a line of code, VS Code informs the client of the hover, and the client sends a query to the server for a hover result. This result is sent back to VS Code, and finally the editor displays the hover result in a Hover widget
+- When you do something with a `.l4` file, like hover over a line of code, VS Code informs the client of the hover, and the client sends a query to the server for a hover result. This result is sent back to VS Code, and finally the editor displays the hover result in a Hover widget
 - See also: [VSCode's Language Server Extension Guide](https://code.visualstudio.com/api/language-extensions/language-server-extension-guide)
 
 
@@ -66,7 +66,7 @@ If you'd like to contribute to the extension, please read the following sections
 
 ## Future Work
 
-- A custom command to generate & display a graph from the dot output produced by l4
+- A custom command to generate & display a graph from the dot output produced by L4
 - Tests. Currently the [tests](https://github.com/smucclaw/baby-l4/tree/main/lsp-tests) that exist cover lsp features. It might be a good idea to write tests for the mkMarkdown and mkGraph commands eventually
 - [Semantic highlighting](https://code.visualstudio.com/api/language-extensions/semantic-highlight-guide)(when the codebase is more mature)
 

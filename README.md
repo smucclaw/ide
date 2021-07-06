@@ -62,13 +62,14 @@ If you'd like to contribute to the extension, please read the following sections
   - [Custom Editors](https://code.visualstudio.com/api/extension-guides/custom-editors)
   - [Virtual Documents](https://code.visualstudio.com/api/extension-guides/virtual-documents)
   - [Markdown Extension](https://code.visualstudio.com/api/extension-guides/markdown-extension)
+- It might also be helpful to look at the [VSCode extension samples](https://github.com/microsoft/vscode-extension-samples) while making your way through the tutorials.
 - Our extension supports [syntax highlighting](https://code.visualstudio.com/api/language-extensions/syntax-highlight-guide). VS Code’s tokenization engine is built on [TextMate grammars](https://www.apeth.com/nonblog/stories/textmatebundle.html), which rely on [Oniguruma regular expressions](https://macromates.com/manual/en/regular_expressions).
 
 ## Future Work
 
 - A custom command to generate & display a graph from the dot output produced by L4
 - Tests. Currently the [tests](https://github.com/smucclaw/baby-l4/tree/main/lsp-tests) that exist cover lsp features. It might be a good idea to write tests for the mkMarkdown and mkGraph commands eventually
-- [Semantic highlighting](https://code.visualstudio.com/api/language-extensions/semantic-highlight-guide)(when the codebase is more mature)
+- [Semantic highlighting](https://code.visualstudio.com/api/language-extensions/semantic-highlight-guide) (when the codebase is more mature)
 
 ## Release Notes
 
